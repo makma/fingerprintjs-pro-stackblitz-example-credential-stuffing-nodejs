@@ -32,11 +32,10 @@ app.post('/login', async (req, res) => {
     region: fpjsServerApi.Region.Global,
     apiToken: 'okb2DYOP5b097vfrOfK7',
   });
-
-  // Get visitor history
-  client.getVisitorHistory(req.body.visitorId).then((visitorHistory) => {
-    console.log(visitorHistory);
-  });
+  console.log(client);
+  const visitorId = req.body.visitorId;
+  console.log(visitorId);
+  // const tmp = await client.getVisitorHistory(req.body.visitorId);
 
   const visitorLoginAttemptCountQueryResult = await Visit.findAndCountAll({
     where: {
