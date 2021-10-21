@@ -1,4 +1,5 @@
 // server/index.js
+const fpjsServerApi = require('@fingerprintjs/fingerprintjs-pro-server-api');
 const express = require('express');
 const cors = require('cors');
 const { Sequelize } = require('sequelize');
@@ -27,6 +28,16 @@ app.use(cors());
 app.use(express.json());
 
 app.post('/login', async (req, res) => {
+  const client = new fpjsServerApi.FingerprintJsServerApiClient({
+    region: fpjsServerApi.Region.Global,
+    apiToken: 'okb2DYOP5b097vfrOfK7',
+  });
+
+  // Get visitor history
+  client.getVisitorHistory(req.body.visitorId).then((visitorHistory) => {
+    console.log(visitorHistory);
+  });
+
   const visitorLoginAttemptCountQueryResult = await Visit.findAndCountAll({
     where: {
       visitorId: req.body.visitorId,
